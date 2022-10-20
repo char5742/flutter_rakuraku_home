@@ -33,93 +33,93 @@ class MyHomePage extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    DeviceApps.listenToAppsChanges().listen((event) {
-      print(event);
-    });
-    return Scaffold(
-      body: ListView(
-        children: [
-          Row(
-            children: [
-              AppBox(
-                icon: const Icon(
-                  Icons.phone,
-                  size: 120,
-                ),
-                text: '電話/電話帳',
-                width: 150,
-                height: 210,
-                onTap: () => DeviceApps.openApp('com.android.contacts'),
-              ),
-              Column(
-                children: [
-                  AppBox(
-                    icon: const Icon(
-                      Icons.mail,
-                      size: 60,
-                    ),
-                    text: 'メール',
-                    width: 150,
-                    height: 100,
-                    onTap: () =>
-                        DeviceApps.openApp('jp.co.nttdocomo.carriermail'),
+    return WillPopScope(
+      onWillPop: () async => true,
+      child: Scaffold(
+        body: ListView(
+          children: [
+            Row(
+              children: [
+                AppBox(
+                  icon: const Icon(
+                    Icons.phone,
+                    size: 120,
                   ),
-                  AppBox(
-                    icon: const Icon(
-                      Icons.public,
-                      size: 60,
+                  text: '電話/電話帳',
+                  width: 150,
+                  height: 210,
+                  onTap: () => DeviceApps.openApp('com.android.contacts'),
+                ),
+                Column(
+                  children: [
+                    AppBox(
+                      icon: const Icon(
+                        Icons.mail,
+                        size: 60,
+                      ),
+                      text: 'メール',
+                      width: 150,
+                      height: 100,
+                      onTap: () =>
+                          DeviceApps.openApp('jp.co.nttdocomo.carriermail'),
                     ),
-                    text: 'インターネット',
-                    width: 150,
-                    height: 100,
-                    onTap: () => DeviceApps.openApp('com.android.browser'),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              AppBox(
-                icon: const Icon(
-                  Icons.phone,
-                  size: 60,
+                    AppBox(
+                      icon: const Icon(
+                        Icons.public,
+                        size: 60,
+                      ),
+                      text: 'インターネット',
+                      width: 150,
+                      height: 100,
+                      onTap: () => DeviceApps.openApp('com.android.browser'),
+                    ),
+                  ],
                 ),
-                text: 'LINE電話',
-                width: 150,
-                height: 100,
-                onTap: () => const AndroidIntent(
-                        action: 'action_view',
-                        data: 'line://ti/p/~fujinoshuuma')
-                    .launch(),
-              ),
-              AppBox(
-                icon: const Icon(
-                  Icons.public,
-                  size: 60,
-                ),
-                text: 'インターネット',
-                width: 150,
-                height: 100,
-                onTap: () => DeviceApps.openApp('com.android.browser'),
-              ),
-            ],
-          ),
-          AppBoxRow(
-            icon: const Icon(
-              Icons.phone_android,
-              size: 60,
+              ],
             ),
-            text: '自分の電話番号',
-            height: 70,
-            width: 320,
-            onTap: () => const AndroidIntent(
-              action: 'action_view',
-              package: 'com.android.contacts',
-              componentName: 'com.android.contacts.ViewMyPageActivity',
-            ).launch(),
-          ),
-        ],
+            Row(
+              children: [
+                AppBox(
+                  icon: const Icon(
+                    Icons.phone,
+                    size: 60,
+                  ),
+                  text: 'LINE電話',
+                  width: 150,
+                  height: 100,
+                  onTap: () => const AndroidIntent(
+                          action: 'action_view',
+                          data: 'https://line.me/R/call/contacts')
+                      .launch(),
+                ),
+                // AppBox(
+                //   icon: const Icon(
+                //     Icons.public,
+                //     size: 60,
+                //   ),
+                //   text: 'LINE',
+                //   width: 150,
+                //   height: 500,
+                //   onTap: () => DeviceApps.openApp(''),
+                // ),
+              ],
+            ),
+            AppBoxRow(
+              icon: const Icon(
+                Icons.phone_android,
+                size: 60,
+              ),
+              text: '自分の電話番号',
+              height: 70,
+              width: 320,
+              onTap: () => const AndroidIntent(
+                action: 'action_view',
+                package: 'com.android.contacts',
+                componentName: 'com.android.contacts.ViewMyPageActivity',
+              ).launch(),
+            ),
+          ],
+        ),
       ),
     );
   }
