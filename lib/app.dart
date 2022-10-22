@@ -45,144 +45,151 @@ class MyHomePage extends HookConsumerWidget {
     if (line.connectionState == ConnectionState.waiting) {
       return Container();
     }
-    return WillPopScope(
-      onWillPop: () async => true,
-      child: Scaffold(
-        body: ListView(
-          children: [
-            Row(
-              children: [
-                AppBox(
-                  icon: const Icon(
-                    Icons.phone,
-                    size: 120,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Theme.of(context).colorScheme.onPrimary,
+        systemNavigationBarColor: Colors.transparent,
+      ),
+      child: WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.onPrimary,
+          body: ListView(
+            children: [
+              Row(
+                children: [
+                  AppBox(
+                    icon: const Icon(
+                      Icons.phone,
+                      size: 120,
+                    ),
+                    text: '電話/電話帳',
+                    width: 150,
+                    height: 210,
+                    onTap: () => DeviceApps.openApp('com.android.contacts'),
                   ),
-                  text: '電話/電話帳',
-                  width: 150,
-                  height: 210,
-                  onTap: () => DeviceApps.openApp('com.android.contacts'),
-                ),
-                Column(
-                  children: [
-                    AppBox(
-                      icon: const Icon(
-                        Icons.mail,
-                        size: 60,
+                  Column(
+                    children: [
+                      AppBox(
+                        icon: const Icon(
+                          Icons.mail,
+                          size: 60,
+                        ),
+                        text: 'メール',
+                        width: 150,
+                        height: 100,
+                        onTap: () =>
+                            DeviceApps.openApp('jp.co.nttdocomo.carriermail'),
                       ),
-                      text: 'メール',
-                      width: 150,
-                      height: 100,
-                      onTap: () =>
-                          DeviceApps.openApp('jp.co.nttdocomo.carriermail'),
-                    ),
-                    AppBox(
-                      icon: const Icon(
-                        Icons.public,
-                        size: 60,
+                      AppBox(
+                        icon: const Icon(
+                          Icons.public,
+                          size: 60,
+                        ),
+                        text: 'インターネット',
+                        width: 150,
+                        height: 100,
+                        onTap: () => DeviceApps.openApp('com.android.browser'),
                       ),
-                      text: 'インターネット',
-                      width: 150,
-                      height: 100,
-                      onTap: () => DeviceApps.openApp('com.android.browser'),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                if (config.name1 != null)
-                  AppBox(
-                      icon: Container(),
-                      text: config.name1!, // TODO: アプリない設定で変更できるようにしたい
-                      width: 54,
-                      height: 54,
-                      onTap: () => lineCall(config.name1!)),
-                if (config.name2 != null)
-                  AppBox(
-                      icon: Container(),
-                      text: config.name2!,
-                      width: 54,
-                      height: 54,
-                      onTap: () => lineCall(config.name2!)),
-                if (config.name3 != null)
-                  AppBox(
-                      icon: Container(),
-                      text: config.name3!,
-                      width: 54,
-                      height: 54,
-                      onTap: () => lineCall(config.name3!)),
-                if (config.name4 != null)
-                  AppBox(
-                      icon: Container(),
-                      text: config.name4!,
-                      width: 54,
-                      height: 54,
-                      onTap: () => lineCall(config.name4!)),
-                if (config.name5 != null)
-                  AppBox(
-                      icon: Container(),
-                      text: config.name5!,
-                      width: 54,
-                      height: 54,
-                      onTap: () => lineCall(config.name5!)),
-              ],
-            ),
-            Row(
-              children: [
-                AppBox(
-                  icon: const Icon(
-                    Icons.phone,
-                    size: 60,
+                    ],
                   ),
-                  text: 'LINE電話',
-                  width: 150,
-                  height: 100,
-                  onTap: () => const AndroidIntent(
-                          action: 'action_view',
-                          data: 'https://line.me/R/call/contacts')
-                      .launch(),
-                ),
-                AppBox(
-                    icon: Image.memory(
-                      (line.data as ApplicationWithIcon).icon,
-                      width: 50,
+                ],
+              ),
+              Row(
+                children: [
+                  if (config.name1 != null)
+                    AppBox(
+                        icon: Container(),
+                        text: config.name1!, // TODO: アプリない設定で変更できるようにしたい
+                        width: 54,
+                        height: 54,
+                        onTap: () => lineCall(config.name1!)),
+                  if (config.name2 != null)
+                    AppBox(
+                        icon: Container(),
+                        text: config.name2!,
+                        width: 54,
+                        height: 54,
+                        onTap: () => lineCall(config.name2!)),
+                  if (config.name3 != null)
+                    AppBox(
+                        icon: Container(),
+                        text: config.name3!,
+                        width: 54,
+                        height: 54,
+                        onTap: () => lineCall(config.name3!)),
+                  if (config.name4 != null)
+                    AppBox(
+                        icon: Container(),
+                        text: config.name4!,
+                        width: 54,
+                        height: 54,
+                        onTap: () => lineCall(config.name4!)),
+                  if (config.name5 != null)
+                    AppBox(
+                        icon: Container(),
+                        text: config.name5!,
+                        width: 54,
+                        height: 54,
+                        onTap: () => lineCall(config.name5!)),
+                ],
+              ),
+              Row(
+                children: [
+                  AppBox(
+                    icon: const Icon(
+                      Icons.phone,
+                      size: 60,
                     ),
-                    text: line.data!.appName,
+                    text: 'LINE電話',
                     width: 150,
                     height: 100,
-                    onTap: () => line.data!.openApp()),
-              ],
-            ),
-            AppBoxRow(
-              icon: const Icon(
-                Icons.phone_android,
-                size: 60,
-              ),
-              text: '自分の電話番号',
-              height: 70,
-              width: 320,
-              onTap: () => const AndroidIntent(
-                action: 'action_view',
-                package: 'com.android.contacts',
-                componentName: 'com.android.contacts.ViewMyPageActivity',
-              ).launch(),
-            ),
-            Row(
-              children: [
-                AppBox(
-                  icon: const Icon(
-                    Icons.settings,
-                    size: 60,
+                    onTap: () => const AndroidIntent(
+                            action: 'action_view',
+                            data: 'https://line.me/R/call/contacts')
+                        .launch(),
                   ),
-                  text: '設定',
-                  width: 150,
-                  height: 100,
-                  onTap: () => DeviceApps.openApp('com.android.settings'),
+                  AppBox(
+                      icon: Image.memory(
+                        (line.data as ApplicationWithIcon).icon,
+                        width: 50,
+                      ),
+                      text: line.data!.appName,
+                      width: 150,
+                      height: 100,
+                      onTap: () => line.data!.openApp()),
+                ],
+              ),
+              AppBoxRow(
+                icon: const Icon(
+                  Icons.phone_android,
+                  size: 60,
                 ),
-              ],
-            ),
-          ],
+                text: '自分の電話番号',
+                height: 70,
+                width: 320,
+                onTap: () => const AndroidIntent(
+                  action: 'action_view',
+                  package: 'com.android.contacts',
+                  componentName: 'com.android.contacts.ViewMyPageActivity',
+                ).launch(),
+              ),
+              Row(
+                children: [
+                  AppBox(
+                    icon: const Icon(
+                      Icons.settings,
+                      size: 60,
+                    ),
+                    text: '設定',
+                    width: 150,
+                    height: 100,
+                    onTap: () => DeviceApps.openApp('com.android.settings'),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
