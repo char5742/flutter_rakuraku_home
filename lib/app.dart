@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData(
         useMaterial3: true,
@@ -66,7 +65,7 @@ class MyHomePage extends HookConsumerWidget {
                     text: '電話/電話帳',
                     width: 150,
                     height: 210,
-                    onTap: () => DeviceApps.openApp('com.android.contacts'),
+                    onTap: () => DeviceApps.openApp('com.android.dialer'),
                   ),
                   Column(
                     children: [
