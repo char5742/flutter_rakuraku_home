@@ -185,6 +185,16 @@ class MyHomePage extends HookConsumerWidget {
                     height: 100,
                     onTap: () => DeviceApps.openApp('com.android.settings'),
                   ),
+                  AppBox(
+                    icon: const Icon(
+                      Icons.calculate,
+                      size: 60,
+                    ),
+                    text: '電卓',
+                    width: 150,
+                    height: 100,
+                    onTap: () => DeviceApps.openApp('com.android.calculator2'),
+                  ),
                 ],
               ),
             ],
